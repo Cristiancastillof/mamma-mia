@@ -1,0 +1,88 @@
+/* === GENERAL === */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #0d0d0d;        /* Fondo negro elegante */
+  color: #ffffff;             /* Texto blanco */
+  margin: 0;
+  padding: 0;
+}
+
+/* === HEADER HERO === */
+.header-hero {
+  background-image: url('https://images.unsplash.com/photo-1548365328-6d10a6b2d2b3?auto=format&fit=crop&w=1500&q=60');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  padding: 5rem 1rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+
+  /* Para que el texto se vea mejor sobre la imagen */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* === NAVBAR === */
+.navbar {
+  background-color: #111 !important;
+  border-bottom: 1px solid #333;
+}
+
+.navbar .navbar-brand {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.navbar button {
+  color: white !important;
+  border-color: #666 !important;
+}
+
+.navbar button:hover {
+  background: #444 !important;
+  border-color: #888 !important;
+}
+
+/* === CARD PIZZA === */
+.card-pizza {
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #333;
+}
+
+.card-pizza img {
+  object-fit: cover;
+  height: 180px;
+  border-bottom: 1px solid #333;
+}
+
+.card-pizza .btn-outline-primary {
+  border-color: #4da3ff;
+  color: #4da3ff;
+}
+
+.card-pizza .btn-outline-primary:hover {
+  background-color: #4da3ff;
+  color: #000;
+}
+
+.card-pizza .btn-primary {
+  background-color: #0066ff;
+  border-color: #0066ff;
+}
+
+.card-pizza .btn-primary:hover {
+  background-color: #3385ff;
+  border-color: #3385ff;
+}
+
+/* === FOOTER === */
+.footer {
+  background: #0b0b0b;
+  color: #888;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+  border-top: 1px solid #333;
+}
