@@ -1,21 +1,23 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
+const CardPizza = ({ pizza }) => {
   return (
-    <div className="card mb-4">
-      <img src={img} className="card-img-top" alt={name} />
-
+    <div className="card h-100">
+      <img src={pizza.img} className="card-img-top" alt={pizza.name} />
       <div className="card-body">
-        <h5 className="card-title">{name}</h5>
+        <h5 className="card-title text-capitalize">{pizza.name}</h5>
 
-        <ul className="mb-3">
-          {ingredients.map((ing, index) => (
-            <li key={index}>{ing}</li>
+        <ul>
+          {pizza.ingredients.map((ing) => (
+            <li key={ing} className="text-capitalize">
+              {ing}
+            </li>
           ))}
         </ul>
 
-        <h6 className="mb-0">Precio: ${price}</h6>
+        <h5>${pizza.price}</h5>
       </div>
     </div>
   );
 };
 
 export default CardPizza;
+

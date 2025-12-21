@@ -1,20 +1,29 @@
+import { useEffect, useState } from "react";
 import CardPizza from "./CardPizza";
-import { pizzas } from "../assets/pizzas";
 
 const Home = () => {
-  return (
-    <div className="container mt-4">
-      <h1 className="mb-4">Pizzas</h1>
+  const [pizzas, setPizzas] = useState([]);
 
+  useEffect(() => {
+    const getPizzas = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/pizzas");
+        const data = await res.json();
+        setPizzas(data);
+      } catch (error) {
+        console.error("Error cargando pizzas", error);
+      }
+    };
+
+    getPizzas();
+  }, []);
+
+  return (
+    <div className="container py-4">
       <div className="row">
         {pizzas.map((pizza) => (
-          <div className="col-md-4" key={pizza.id}>
-            <CardPizza
-              name={pizza.name}
-              price={pizza.price}
-              ingredients={pizza.ingredients}
-              img={pizza.img}
-            />
+          <div className="col-12 col-md-6 col-lg-4 mb-3" key={pizza.id}>
+            <CardPizza pizza={pizza} />
           </div>
         ))}
       </div>
