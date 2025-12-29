@@ -6,7 +6,7 @@ const CardPizza = ({ pizza }) => {
         <h5 className="card-title text-capitalize">{pizza.name}</h5>
 
         <ul>
-          {pizza.ingredients.map((ing) => (
+          {pizza.ingredients?.map((ing) => (
             <li key={ing} className="text-capitalize">
               {ing}
             </li>

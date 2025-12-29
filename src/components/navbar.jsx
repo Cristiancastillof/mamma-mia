@@ -1,68 +1,48 @@
 import React from "react";
-import { formatNumber } from "../utils/format";
+import { Link, NavLink } from "react-router-dom";
 
-const Navbar = ({ setView, token }) => {
+export default function Navbar() {
   const total = 25000;
+  const token = false; // estático por ahora
+
+  const setActiveClass = ({ isActive }) =>
+    isActive ? "btn btn-primary" : "btn btn-outline-primary";
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <span
-          className="navbar-brand"
-          style={{ cursor: "pointer" }}
-          onClick={() => setView("home")}
-        >
+      <div className="container d-flex justify-content-between">
+        <Link className="navbar-brand" to="/">
           🍕 Mamma Mía
-        </span>
+        </Link>
 
         <div className="d-flex gap-2">
-          {/* Home - siempre visible */}
-          <button
-            className="btn btn-outline-primary"
-            onClick={() => setView("home")}
-          >
+          <NavLink to="/" className={setActiveClass}>
             🍕 Home
-          </button>
+          </NavLink>
 
-          {/* Botón carrito */}
-          <button
-            className="btn btn-outline-dark"
-            onClick={() => setView("cart")}
-          >
-            🛒 Total: ${formatNumber(total)}
-          </button>
-
-          {/* botones dependientes del token */}
-          {token ? (
+          {!token ? (
             <>
-              <button className="btn btn-outline-secondary">
-                🔓 Profile
-              </button>
-              <button className="btn btn-outline-danger">
-                🔒 Logout
-              </button>
+              <NavLink to="/login" className={setActiveClass}>
+                🔐 Login
+              </NavLink>
+              <NavLink to="/register" className={setActiveClass}>
+                📝 Register
+              </NavLink>
             </>
           ) : (
             <>
-              <button
-                className="btn btn-outline-success"
-                onClick={() => setView("login")}
-              >
-                🔐 Login
-              </button>
-
-              <button
-                className="btn btn-outline-warning"
-                onClick={() => setView("register")}
-              >
-                📝 Register
-              </button>
+              <NavLink to="/profile" className={setActiveClass}>
+                👤 Profile
+              </NavLink>
+              <button className="btn btn-outline-danger">🔒 Logout</button>
             </>
           )}
+
+          <Link to="/cart" className="btn btn-success">
+            🛒 Total: ${total}
+          </Link>
         </div>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

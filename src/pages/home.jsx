@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
-import CardPizza from "./CardPizza";
+import CardPizza from "../components/cardpizza";
+import { pizzas as pizzasData } from "../data/pizzas";
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
-    const getPizzas = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/pizzas");
-        const data = await res.json();
-        setPizzas(data);
-      } catch (error) {
-        console.error("Error cargando pizzas", error);
-      }
-    };
-
-    getPizzas();
+    // Simula carga (en vez de fetch)
+    setPizzas(pizzasData);
   }, []);
 
   return (
