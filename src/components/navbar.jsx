@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 export default function Navbar() {
-  const total = 25000;
+  const { total } = useContext(CartContext);
+
   const token = false; // estático por ahora
 
   const setActiveClass = ({ isActive }) =>
@@ -39,7 +41,7 @@ export default function Navbar() {
           )}
 
           <Link to="/cart" className="btn btn-success">
-            🛒 Total: ${total}
+            🛒 Total: ${total.toLocaleString("es-CL")}
           </Link>
         </div>
       </div>
