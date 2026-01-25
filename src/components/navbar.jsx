@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Navbar() {
-  const { total } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext);
 
-  const token = false; // estático por ahora
+  const cart = useContext(CartContext);
+  const total = cart?.total ?? 25000;
 
   const setActiveClass = ({ isActive }) =>
     isActive ? "btn btn-primary" : "btn btn-outline-primary";
@@ -17,34 +19,39 @@ export default function Navbar() {
           🍕 Mamma Mía
         </Link>
 
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-2 align-items-center">
           <NavLink to="/" className={setActiveClass}>
             🍕 Home
           </NavLink>
 
-          {!token ? (
-            <>
-              <NavLink to="/login" className={setActiveClass}>
-                🔐 Login
-              </NavLink>
-              <NavLink to="/register" className={setActiveClass}>
-                📝 Register
-              </NavLink>
-            </>
-          ) : (
+          <NavLink to="/cart" className={setActiveClass}>
+            🛒 Total: ${total}
+          </NavLink>
+
+          {token ? (
             <>
               <NavLink to="/profile" className={setActiveClass}>
                 👤 Profile
               </NavLink>
-              <button className="btn btn-outline-danger">🔒 Logout</button>
+
+              <button type="button" className="btn btn-outline-danger" onClick={logout}>
+                🔓 Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className={setActiveClass}>
+                🔐 Login
+              </NavLink>
+
+              <NavLink to="/register" className={setActiveClass}>
+                📝 Register
+              </NavLink>
             </>
           )}
-
-          <Link to="/cart" className="btn btn-success">
-            🛒 Total: ${total.toLocaleString("es-CL")}
-          </Link>
         </div>
       </div>
     </nav>
   );
 }
+

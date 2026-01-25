@@ -11,6 +11,9 @@ import Pizza from "./pages/pizza";
 import Profile from "./pages/profile";
 import NotFound from "./pages/notfound";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -18,14 +21,24 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/pizza/:id" element={<Pizza />} />
+
+        {/* PUBLICAS: si token=true → redirect a "/" */}
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
+
+        {/* PROTEGIDAS: si token=false → redirect a "/login" */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
+

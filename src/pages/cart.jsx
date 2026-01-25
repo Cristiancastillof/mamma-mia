@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { pizzaCart } from "../assets/pizzas";
+import { UserContext } from "../context/UserContext";
 
 const Cart = () => {
   const [cart, setCart] = useState(pizzaCart);
+  const { token } = useContext(UserContext);
 
   const increase = (id) => {
     const newCart = cart.map((p) =>
@@ -69,7 +71,16 @@ const Cart = () => {
 
       <h3>Total: ${total}</h3>
 
-      <button className="btn btn-primary mt-3">
+      {!token && (
+        <p className="text-danger mt-2">
+          Debes iniciar sesión para pagar
+        </p>
+      )}
+
+      <button
+        className="btn btn-primary mt-3"
+        disabled={!token}
+      >
         Pagar
       </button>
     </div>
