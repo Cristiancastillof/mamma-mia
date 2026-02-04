@@ -1,38 +1,56 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
-const CardPizza = ({ pizza }) => {
+export default function CardPizza({ pizza }) {
+  // 🛡️ Evita pantalla en blanco si llega undefined por cualquier motivo
+  if (!pizza) return null;
+
+  const { addToCart } = useContext(CartContext);
+
   return (
     <div className="card h-100">
       <img
-        src={pizza.img}
+        src={pizza.img || ""}
         className="card-img-top"
-        alt={pizza.name}
+        alt={pizza.name || "pizza"}
       />
 
       <div className="card-body d-flex flex-column">
         <h5 className="card-title text-capitalize">{pizza.name}</h5>
 
-        <ul>
-          {pizza.ingredients?.map((ing) => (
-            <li key={ing} className="text-capitalize">
-              {ing}
-            </li>
-          ))}
-        </ul>
+        <p className="mb-2">
+          <strong>${pizza.price}</strong>
+        </p>
 
-        <h5 className="mt-auto">${pizza.price}</h5>
+        {/* Si quieres mostrar ingredientes (opcional) */}
+        {Array.isArray(pizza.ingredients) && pizza.ingredients.length > 0 && (
+          <ul className="mb-3">
+            {pizza.ingredients.map((ing) => (
+              <li key={ing} className="text-capitalize">
+                {ing}
+              </li>
+            ))}
+          </ul>
+        )}
 
-        {/* BOTÓN DETALLE – HITO 7 */}
-        <Link
-          to={`/pizza/${pizza.id}`}
-          className="btn btn-outline-primary mt-2"
-        >
-          Ver detalle
-        </Link>
+        <div className="mt-auto d-flex gap-2">
+          <Link
+            to={`/pizza/${pizza.id}`}
+            className="btn btn-outline-primary w-50"
+          >
+            Ver más
+          </Link>
+
+          <button
+            type="button"
+            className="btn btn-primary w-50"
+            onClick={() => addToCart(pizza)}
+          >
+            Añadir
+          </button>
+        </div>
       </div>
     </div>
   );
-};
-
-export default CardPizza;
-
+}

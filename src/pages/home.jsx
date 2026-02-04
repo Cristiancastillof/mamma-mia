@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import CardPizza from "../components/cardpizza";
 import { pizzas as pizzasData } from "../data/pizzas";
 
-const Home = () => {
+export default function Home() {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
-    // Simula carga (en vez de fetch)
+    // carga directa desde data (sin fetch)
     setPizzas(pizzasData);
   }, []);
 
@@ -21,6 +21,4 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}

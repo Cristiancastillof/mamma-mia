@@ -1,16 +1,24 @@
-import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../context/UserContext";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const { token, logout } = useContext(UserContext);
 
-  const cart = useContext(CartContext);
-  const total = cart?.total ?? 25000;
+  // Ajusta según cómo expongas CartContext:
+  // Si tu CartContext ya trae `total`, esto funciona perfecto.
+  // Si no, dime qué trae y lo adaptamos.
+  const { total = 0 } = useContext(CartContext) || {};
 
   const setActiveClass = ({ isActive }) =>
     isActive ? "btn btn-primary" : "btn btn-outline-primary";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,7 +42,11 @@ export default function Navbar() {
                 👤 Profile
               </NavLink>
 
-              <button type="button" className="btn btn-outline-danger" onClick={logout}>
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={handleLogout}
+              >
                 🔓 Logout
               </button>
             </>
@@ -54,4 +66,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
